@@ -1,0 +1,2892 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Parth Gurav — Computer Engineering Portfolio</title>
+    <meta
+      name="description"
+      content="Portfolio of Parth Gurav, a 2nd-year Computer Engineering student passionate about C, C++, Data Structures & Algorithms, and systems software."
+    />
+    <meta property="og:title" content="Parth Gurav — Computer Engineering Portfolio" />
+    <meta
+      property="og:description"
+      content="2nd-year Computer Engineering student specializing in C, C++, Data Structures & Algorithms, and GUI development."
+    />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* ==========================================================================
+         1. Design Tokens & Dual-Theme Variables (60% Canvas / 30% Surface / 10% Accent)
+         ========================================================================== */
+      :root {
+        /* Light Theme (High-Contrast Cool Slate + Teal/Blue Accent) */
+        --bg-canvas: #f8fafc;
+        --bg-surface: #ffffff;
+        --bg-surface-alt: #f1f5f9;
+        --bg-header: rgba(248, 250, 252, 0.88);
+        --bg-code: #0f172a;
+        --text-code: #e2e8f0;
+
+        --text-primary: #0f172a;
+        --text-secondary: #475569;
+        --text-muted: #64748b;
+
+        --border-hairline: #e2e8f0;
+        --border-strong: #cbd5e1;
+
+        --accent: #0d9488;
+        --accent-hover: #0f766e;
+        --accent-secondary: #0284c7;
+        --accent-soft: rgba(13, 148, 136, 0.1);
+        --accent-on-solid: #ffffff;
+
+        --shadow-card: 0 1px 2px rgba(15, 23, 42, 0.04), 0 4px 16px rgba(15, 23, 42, 0.04);
+        --shadow-elevated: 0 12px 32px rgba(15, 23, 42, 0.08);
+        --focus-ring: 0 0 0 3px rgba(13, 148, 136, 0.35);
+
+        --success-text: #047857;
+        --success-bg: rgba(4, 120, 87, 0.1);
+        --error-text: #be123c;
+        --error-bg: rgba(190, 18, 60, 0.1);
+      }
+
+      [data-theme="dark"] {
+        /* Modern Dark Theme (Obsidian Slate + Luminous Teal/Sky Accent) */
+        --bg-canvas: #090d16;
+        --bg-surface: #111827;
+        --bg-surface-alt: #182234;
+        --bg-header: rgba(9, 13, 22, 0.86);
+        --bg-code: #0b111e;
+        --text-code: #e2e8f0;
+
+        --text-primary: #f1f5f9;
+        --text-secondary: #cbd5e1;
+        --text-muted: #94a3b8;
+
+        --border-hairline: rgba(148, 163, 184, 0.15);
+        --border-strong: rgba(148, 163, 184, 0.28);
+
+        --accent: #14b8a6;
+        --accent-hover: #2dd4bf;
+        --accent-secondary: #38bdf8;
+        --accent-soft: rgba(20, 184, 166, 0.14);
+        --accent-on-solid: #042f2e;
+
+        --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.25);
+        --shadow-elevated: 0 18px 40px rgba(0, 0, 0, 0.45);
+        --focus-ring: 0 0 0 3px rgba(20, 184, 166, 0.38);
+
+        --success-text: #34d399;
+        --success-bg: rgba(52, 211, 153, 0.12);
+        --error-text: #fb7185;
+        --error-bg: rgba(251, 113, 133, 0.12);
+      }
+
+      /* ==========================================================================
+         2. Base Reset & Typography
+         ========================================================================== */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 76px;
+        -webkit-text-size-adjust: 100%;
+      }
+
+      body {
+        margin: 0;
+        background-color: var(--bg-canvas);
+        color: var(--text-primary);
+        font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font-size: 15.5px;
+        line-height: 1.65;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        transition: background-color 180ms cubic-bezier(0.16, 1, 0.3, 1),
+          color 180ms cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      [data-theme="dark"] body {
+        letter-spacing: 0.008em;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4 {
+        margin: 0;
+        font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        color: var(--text-primary);
+        letter-spacing: -0.02em;
+        line-height: 1.2;
+        text-wrap: balance;
+      }
+
+      p {
+        margin: 0;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      button,
+      input,
+      textarea {
+        font: inherit;
+        color: inherit;
+      }
+
+      button {
+        cursor: pointer;
+        border: none;
+        background: none;
+      }
+
+      :focus-visible {
+        outline: none;
+        box-shadow: var(--focus-ring);
+      }
+
+      .mono {
+        font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .tabular-nums {
+        font-variant-numeric: tabular-nums;
+      }
+
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+
+      /* ==========================================================================
+         3. Layout Containers & Section Rhythm
+         ========================================================================== */
+      .container {
+        width: 100%;
+        max-width: 1160px;
+        margin-inline: auto;
+        padding-inline: 20px;
+      }
+
+      @media (min-width: 768px) {
+        .container {
+          padding-inline: 32px;
+        }
+      }
+
+      .section {
+        padding-block: 72px;
+        border-top: 1px solid var(--border-hairline);
+      }
+
+      @media (min-width: 1024px) {
+        .section {
+          padding-block: 96px;
+        }
+      }
+
+      .section-header {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 40px;
+        max-width: 680px;
+      }
+
+      .section-kicker {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--accent);
+        letter-spacing: 0.01em;
+      }
+
+      .section-title {
+        font-size: clamp(1.65rem, 2.8vw, 2.25rem);
+        font-weight: 700;
+      }
+
+      .section-lead {
+        font-size: 15.5px;
+        color: var(--text-secondary);
+        max-width: 62ch;
+      }
+
+      /* ==========================================================================
+         4. Top Navigation Bar (Strict 3-Zone Contract, <= 64px Mobile Height)
+         ========================================================================== */
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        height: 64px;
+        background-color: var(--bg-header);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--border-hairline);
+        transition: background-color 180ms cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .header-inner {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 32px;
+      }
+
+      .brand-wordmark {
+        font-family: "Poppins", sans-serif;
+        font-size: 18px;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        color: var(--text-primary);
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+
+      .nav-desktop {
+        display: none;
+        align-items: center;
+        gap: 28px;
+      }
+
+      @media (min-width: 820px) {
+        .nav-desktop {
+          display: flex;
+        }
+      }
+
+      .nav-link {
+        position: relative;
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--text-secondary);
+        padding-block: 6px;
+        white-space: nowrap;
+        flex-shrink: 0;
+        transition: color 150ms ease;
+      }
+
+      .nav-link:hover {
+        color: var(--text-primary);
+      }
+
+      .nav-link::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 2px;
+        background-color: var(--accent);
+        transform: scaleX(0);
+        transform-origin: left center;
+        transition: transform 180ms cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .nav-link.active {
+        color: var(--text-primary);
+        font-weight: 600;
+      }
+
+      .nav-link.active::after {
+        transform: scaleX(1);
+      }
+
+      .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-shrink: 0;
+      }
+
+      .theme-toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        min-height: 40px;
+        padding: 8px 14px;
+        border-radius: 8px;
+        border: 1px solid var(--border-hairline);
+        background-color: var(--bg-surface);
+        color: var(--text-primary);
+        font-size: 13px;
+        font-weight: 600;
+        white-space: nowrap;
+        flex-shrink: 0;
+        transition: border-color 150ms ease, background-color 150ms ease, transform 150ms ease;
+      }
+
+      .theme-toggle:hover {
+        border-color: var(--border-strong);
+        background-color: var(--bg-surface-alt);
+      }
+
+      .theme-toggle:active {
+        transform: scale(0.98);
+      }
+
+      .mobile-menu-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+        border-radius: 8px;
+        border: 1px solid var(--border-hairline);
+        background-color: var(--bg-surface);
+        color: var(--text-primary);
+      }
+
+      @media (min-width: 820px) {
+        .mobile-menu-btn {
+          display: none;
+        }
+      }
+
+      /* Mobile Navigation Drawer */
+      .mobile-nav-panel {
+        display: none;
+        position: fixed;
+        top: 64px;
+        left: 0;
+        right: 0;
+        z-index: 45;
+        background-color: var(--bg-surface);
+        border-bottom: 1px solid var(--border-hairline);
+        padding: 16px 20px 24px;
+        box-shadow: var(--shadow-elevated);
+      }
+
+      .mobile-nav-panel.open {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .mobile-nav-link {
+        display: flex;
+        align-items: center;
+        min-height: 44px;
+        padding: 8px 12px;
+        border-radius: 8px;
+        font-size: 15px;
+        font-weight: 500;
+        color: var(--text-secondary);
+      }
+
+      .mobile-nav-link.active,
+      .mobile-nav-link:hover {
+        background-color: var(--bg-surface-alt);
+        color: var(--text-primary);
+      }
+
+      /* ==========================================================================
+         5. Buttons & Interactive Controls
+         ========================================================================== */
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        min-height: 44px;
+        padding: 11px 22px;
+        border-radius: 10px;
+        font-size: 14.5px;
+        font-weight: 600;
+        white-space: nowrap;
+        flex-shrink: 0;
+        transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease,
+          transform 160ms cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .btn:active {
+        transform: translateY(1px);
+      }
+
+      .btn-primary {
+        background-color: var(--accent);
+        color: var(--accent-on-solid);
+      }
+
+      .btn-primary:hover {
+        background-color: var(--accent-hover);
+      }
+
+      .btn-secondary {
+        background-color: var(--bg-surface);
+        color: var(--text-primary);
+        border: 1px solid var(--border-strong);
+      }
+
+      .btn-secondary:hover {
+        background-color: var(--bg-surface-alt);
+      }
+
+      .btn-sm {
+        min-height: 40px;
+        padding: 8px 16px;
+        font-size: 13.5px;
+        border-radius: 8px;
+      }
+
+      /* ==========================================================================
+         6. Hero Section (Split Layout + Full-Width Key Strip Below)
+         ========================================================================== */
+      .hero-section {
+        padding-block: 56px 72px;
+      }
+
+      @media (min-width: 1024px) {
+        .hero-section {
+          padding-block: 76px 88px;
+        }
+      }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 36px;
+        align-items: stretch;
+      }
+
+      @media (min-width: 960px) {
+        .hero-grid {
+          grid-template-columns: 1.08fr 0.92fr;
+          gap: 48px;
+        }
+      }
+
+      .hero-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 20px;
+      }
+
+      .hero-identity {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+      }
+
+      .hero-avatar {
+        position: relative;
+        width: 76px;
+        height: 76px;
+        border-radius: 16px;
+        overflow: hidden;
+        border: 1px solid var(--border-strong);
+        background-color: var(--bg-surface-alt);
+        box-shadow: var(--shadow-card);
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      @media (min-width: 640px) {
+        .hero-avatar {
+          width: 88px;
+          height: 88px;
+        }
+      }
+
+      .hero-avatar-fallback {
+        font-family: "Poppins", sans-serif;
+        font-size: 22px;
+        font-weight: 700;
+        color: var(--accent);
+        user-select: none;
+      }
+
+      .hero-avatar img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: 50% 18%;
+        transform: scale(1.08);
+        display: block;
+      }
+
+      .hero-name-group {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        min-width: 0;
+      }
+
+      .hero-kicker {
+        font-size: 13.5px;
+        font-weight: 600;
+        color: var(--accent);
+      }
+
+      .hero-title {
+        font-size: clamp(2.2rem, 4.4vw, 3.65rem);
+        font-weight: 700;
+        line-height: 1.08;
+      }
+
+      .hero-tagline {
+        font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+        font-weight: 500;
+        color: var(--text-secondary);
+        min-height: 32px;
+      }
+
+      .typing-accent {
+        color: var(--accent-secondary);
+        font-weight: 600;
+      }
+
+      .typing-cursor {
+        display: inline-block;
+        width: 2px;
+        height: 1.1em;
+        margin-left: 3px;
+        vertical-align: -0.15em;
+        background-color: var(--accent);
+        animation: blinkCursor 1s steps(2, start) infinite;
+      }
+
+      @keyframes blinkCursor {
+        to {
+          opacity: 0;
+        }
+      }
+
+      .hero-summary {
+        color: var(--text-secondary);
+        max-width: 56ch;
+        font-size: 15.5px;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        padding-top: 6px;
+      }
+
+      /* Interactive Hero Visual Panel (Live Sorting & C++ Preview) */
+      .hero-visual {
+        background-color: var(--bg-surface);
+        border: 1px solid var(--border-hairline);
+        border-radius: 16px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 16px;
+        box-shadow: var(--shadow-card);
+      }
+
+      .visual-toolbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid var(--border-hairline);
+      }
+
+      .visual-title {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--text-primary);
+      }
+
+      .visual-controls {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .segmented-control {
+        display: inline-flex;
+        padding: 3px;
+        border-radius: 8px;
+        background-color: var(--bg-surface-alt);
+        border: 1px solid var(--border-hairline);
+        gap: 2px;
+      }
+
+      .seg-btn {
+        padding: 5px 11px;
+        border-radius: 6px;
+        font-size: 12.5px;
+        font-weight: 600;
+        color: var(--text-secondary);
+        white-space: nowrap;
+        transition: background-color 150ms ease, color 150ms ease;
+      }
+
+      .seg-btn.active {
+        background-color: var(--bg-surface);
+        color: var(--text-primary);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+      }
+
+      .hero-bars-stage {
+        height: 210px;
+        display: flex;
+        align-items: flex-end;
+        gap: 6px;
+        padding: 16px 12px 10px;
+        background-color: var(--bg-code);
+        border-radius: 10px;
+      }
+
+      .hero-bar {
+        flex: 1;
+        border-radius: 4px 4px 2px 2px;
+        background: linear-gradient(180deg, var(--accent-secondary) 0%, var(--accent) 100%);
+        transition: height 140ms cubic-bezier(0.16, 1, 0.3, 1), opacity 140ms ease;
+      }
+
+      .hero-bar.comparing {
+        background: #f59e0b;
+      }
+
+      .hero-bar.sorted {
+        background: #14b8a6;
+      }
+
+      .hero-code-panel {
+        display: none;
+        height: 210px;
+        overflow: auto;
+        padding: 16px;
+        background-color: var(--bg-code);
+        color: var(--text-code);
+        border-radius: 10px;
+        font-size: 12.5px;
+        line-height: 1.55;
+      }
+
+      .hero-code-panel.active {
+        display: block;
+      }
+
+      .hero-bars-stage.hidden {
+        display: none;
+      }
+
+      .visual-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        font-size: 12.5px;
+        color: var(--text-muted);
+      }
+
+      .hero-metrics-strip {
+        margin-top: 44px;
+        padding-top: 28px;
+        border-top: 1px solid var(--border-hairline);
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+      }
+
+      @media (min-width: 768px) {
+        .hero-metrics-strip {
+          grid-template-columns: repeat(4, 1fr);
+          gap: 24px;
+        }
+      }
+
+      .metric-item {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .metric-value {
+        font-family: "Poppins", sans-serif;
+        font-size: 22px;
+        font-weight: 700;
+        color: var(--text-primary);
+      }
+
+      .metric-label {
+        font-size: 13px;
+        color: var(--text-muted);
+      }
+
+      /* ==========================================================================
+         7. About Section
+         ========================================================================== */
+      .about-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 36px;
+      }
+
+      @media (min-width: 860px) {
+        .about-grid {
+          grid-template-columns: 1.25fr 0.75fr;
+          gap: 56px;
+        }
+      }
+
+      .about-prose {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        color: var(--text-secondary);
+        font-size: 16px;
+        max-width: 65ch;
+      }
+
+      .about-facts {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .fact-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 16px;
+        padding-block: 14px;
+        border-bottom: 1px solid var(--border-hairline);
+      }
+
+      .fact-row:first-child {
+        border-top: 1px solid var(--border-hairline);
+      }
+
+      .fact-key {
+        font-size: 13px;
+        color: var(--text-muted);
+        flex-shrink: 0;
+      }
+
+      .fact-val {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text-primary);
+        text-align: right;
+      }
+
+      /* ==========================================================================
+         8. Skills Section (Filterable Cards with Progress Bars)
+         ========================================================================== */
+      .skills-toolbar {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 28px;
+      }
+
+      .filter-tabs {
+        display: inline-flex;
+        flex-wrap: wrap;
+        gap: 4px;
+        padding: 4px;
+        border-radius: 10px;
+        background-color: var(--bg-surface-alt);
+        border: 1px solid var(--border-hairline);
+      }
+
+      .filter-tab {
+        min-height: 36px;
+        padding: 6px 14px;
+        border-radius: 7px;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--text-secondary);
+        white-space: nowrap;
+        transition: background-color 150ms ease, color 150ms ease;
+      }
+
+      .filter-tab:hover {
+        color: var(--text-primary);
+      }
+
+      .filter-tab.active {
+        background-color: var(--bg-surface);
+        color: var(--text-primary);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+      }
+
+      .skills-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      @media (min-width: 640px) {
+        .skills-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .skills-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+
+      .skill-card {
+        background-color: var(--bg-surface);
+        border: 1px solid var(--border-hairline);
+        border-radius: 14px;
+        padding: 22px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        box-shadow: var(--shadow-card);
+        transition: transform 180ms cubic-bezier(0.16, 1, 0.3, 1),
+          border-color 180ms ease;
+      }
+
+      .skill-card:hover {
+        transform: translateY(-3px);
+        border-color: var(--border-strong);
+      }
+
+      .skill-card.hidden-skill {
+        display: none;
+      }
+
+      .skill-top {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .skill-name {
+        font-size: 16.5px;
+        font-weight: 600;
+      }
+
+      .skill-pct {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--accent);
+      }
+
+      .skill-meta {
+        font-size: 13px;
+        color: var(--text-muted);
+      }
+
+      .progress-track {
+        width: 100%;
+        height: 7px;
+        border-radius: 999px;
+        background-color: var(--bg-surface-alt);
+        overflow: hidden;
+      }
+
+      .progress-fill {
+        height: 100%;
+        width: 100%;
+        border-radius: 999px;
+        background: linear-gradient(90deg, var(--accent) 0%, var(--accent-secondary) 100%);
+        transform-origin: left center;
+        transform: scaleX(0);
+        transition: transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .skill-card.in-view .progress-fill {
+        transform: scaleX(var(--progress, 0.8));
+      }
+
+      .skill-topics {
+        font-size: 13.5px;
+        color: var(--text-secondary);
+        line-height: 1.5;
+      }
+
+      /* ==========================================================================
+         9. Projects Section (Cards with Clean SVG Artwork & Interactive Modal)
+         ========================================================================== */
+      .projects-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+
+      @media (min-width: 768px) {
+        .projects-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      .project-card {
+        background-color: var(--bg-surface);
+        border: 1px solid var(--border-hairline);
+        border-radius: 16px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        box-shadow: var(--shadow-card);
+        transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1),
+          border-color 200ms ease, box-shadow 200ms ease;
+      }
+
+      .project-card:hover {
+        transform: translateY(-4px);
+        border-color: var(--border-strong);
+        box-shadow: var(--shadow-elevated);
+      }
+
+      .project-preview {
+        height: 164px;
+        background-color: var(--bg-code);
+        border-bottom: 1px solid var(--border-hairline);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 18px;
+        overflow: hidden;
+      }
+
+      .project-body {
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        flex: 1;
+      }
+
+      .project-kicker {
+        font-size: 12.5px;
+        font-weight: 500;
+        color: var(--accent);
+      }
+
+      .project-title {
+        font-size: 19px;
+        font-weight: 700;
+      }
+
+      .project-desc {
+        font-size: 14.5px;
+        color: var(--text-secondary);
+        flex: 1;
+      }
+
+      .project-links {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 16px;
+        padding-top: 14px;
+        border-top: 1px solid var(--border-hairline);
+      }
+
+      .project-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        min-height: 40px;
+        font-size: 13.5px;
+        font-weight: 600;
+        color: var(--text-primary);
+        transition: color 150ms ease;
+      }
+
+      .project-link:hover {
+        color: var(--accent);
+      }
+
+      .project-link-action {
+        color: var(--accent);
+      }
+
+      /* ==========================================================================
+         10. Education & Achievements Timeline + Coding Stats
+         ========================================================================== */
+      .edu-layout {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      @media (min-width: 960px) {
+        .edu-layout {
+          grid-template-columns: 1.25fr 0.75fr;
+          gap: 48px;
+        }
+      }
+
+      .timeline {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+        padding-left: 28px;
+      }
+
+      .timeline::before {
+        content: "";
+        position: absolute;
+        left: 7px;
+        top: 8px;
+        bottom: 8px;
+        width: 1px;
+        background-color: var(--border-strong);
+      }
+
+      .timeline-item {
+        position: relative;
+        background-color: var(--bg-surface);
+        border: 1px solid var(--border-hairline);
+        border-radius: 14px;
+        padding: 20px 22px;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        transition: border-color 180ms ease;
+      }
+
+      .timeline-item:hover {
+        border-color: var(--border-strong);
+      }
+
+      .timeline-item::before {
+        content: "";
+        position: absolute;
+        left: -26px;
+        top: 24px;
+        width: 11px;
+        height: 11px;
+        border-radius: 50%;
+        background-color: var(--accent);
+        border: 2px solid var(--bg-canvas);
+      }
+
+      .timeline-period {
+        font-size: 12.5px;
+        font-weight: 600;
+        color: var(--accent);
+      }
+
+      .timeline-title {
+        font-size: 17px;
+        font-weight: 700;
+      }
+
+      .timeline-org {
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--text-primary);
+      }
+
+      .timeline-detail {
+        font-size: 14px;
+        color: var(--text-secondary);
+        margin-top: 4px;
+      }
+
+      .stats-column {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .stat-card {
+        background-color: var(--bg-surface);
+        border: 1px solid var(--border-hairline);
+        border-radius: 14px;
+        padding: 20px 22px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        transition: transform 180ms cubic-bezier(0.16, 1, 0.3, 1), border-color 180ms ease;
+      }
+
+      .stat-card:hover {
+        transform: translateY(-2px);
+        border-color: var(--border-strong);
+      }
+
+      .stat-head {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .stat-platform {
+        font-size: 15.5px;
+        font-weight: 700;
+      }
+
+      .stat-handle {
+        font-size: 12.5px;
+        color: var(--text-muted);
+      }
+
+      .stat-figure {
+        font-family: "Poppins", sans-serif;
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--accent);
+      }
+
+      .stat-sub {
+        font-size: 13.5px;
+        color: var(--text-secondary);
+      }
+
+      .stat-link {
+        margin-top: 4px;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--text-primary);
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .stat-link:hover {
+        color: var(--accent);
+      }
+
+      /* ==========================================================================
+         11. Contact Section
+         ========================================================================== */
+      .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 36px;
+      }
+
+      @media (min-width: 860px) {
+        .contact-grid {
+          grid-template-columns: 0.9fr 1.1fr;
+          gap: 48px;
+        }
+      }
+
+      .contact-channels {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .channel-card {
+        background-color: var(--bg-surface);
+        border: 1px solid var(--border-hairline);
+        border-radius: 12px;
+        padding: 16px 18px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        transition: border-color 160ms ease;
+      }
+
+      .channel-card:hover {
+        border-color: var(--border-strong);
+      }
+
+      .channel-info {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        min-width: 0;
+      }
+
+      .channel-label {
+        font-size: 12.5px;
+        color: var(--text-muted);
+      }
+
+      .channel-value {
+        font-size: 14.5px;
+        font-weight: 600;
+        color: var(--text-primary);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .contact-form {
+        background-color: var(--bg-surface);
+        border: 1px solid var(--border-hairline);
+        border-radius: 16px;
+        padding: 26px;
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        box-shadow: var(--shadow-card);
+      }
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .form-label {
+        font-size: 13.5px;
+        font-weight: 600;
+        color: var(--text-primary);
+      }
+
+      .form-control {
+        width: 100%;
+        padding: 11px 14px;
+        border-radius: 10px;
+        border: 1px solid var(--border-strong);
+        background-color: var(--bg-canvas);
+        color: var(--text-primary);
+        font-size: 14.5px;
+        transition: border-color 150ms ease, box-shadow 150ms ease;
+      }
+
+      .form-control:focus {
+        outline: none;
+        border-color: var(--accent);
+        box-shadow: var(--focus-ring);
+      }
+
+      textarea.form-control {
+        min-height: 124px;
+        resize: vertical;
+      }
+
+      .form-feedback {
+        display: none;
+        padding: 12px 14px;
+        border-radius: 10px;
+        font-size: 13.5px;
+        font-weight: 500;
+      }
+
+      .form-feedback.success {
+        display: block;
+        background-color: var(--success-bg);
+        color: var(--success-text);
+      }
+
+      .form-feedback.error {
+        display: block;
+        background-color: var(--error-bg);
+        color: var(--error-text);
+      }
+
+      /* ==========================================================================
+         12. Footer
+         ========================================================================== */
+      .site-footer {
+        border-top: 1px solid var(--border-hairline);
+        padding-block: 32px;
+      }
+
+      .footer-inner {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        font-size: 13.5px;
+        color: var(--text-muted);
+      }
+
+      .footer-links {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .footer-links a:hover {
+        color: var(--text-primary);
+      }
+
+      /* ==========================================================================
+         13. Project / Resume Modal
+         ========================================================================== */
+      .modal-backdrop {
+        position: fixed;
+        inset: 0;
+        z-index: 80;
+        background-color: rgba(2, 6, 23, 0.72);
+        backdrop-filter: blur(4px);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+
+      .modal-backdrop.open {
+        display: flex;
+      }
+
+      .modal-dialog {
+        width: 100%;
+        max-width: 680px;
+        max-height: 90vh;
+        overflow-y: auto;
+        background-color: var(--bg-surface);
+        border: 1px solid var(--border-strong);
+        border-radius: 16px;
+        padding: 28px;
+        box-shadow: var(--shadow-elevated);
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+      }
+
+      .modal-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 16px;
+      }
+
+      .modal-close {
+        width: 40px;
+        height: 40px;
+        border-radius: 8px;
+        border: 1px solid var(--border-hairline);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--text-secondary);
+        flex-shrink: 0;
+      }
+
+      .modal-close:hover {
+        background-color: var(--bg-surface-alt);
+        color: var(--text-primary);
+      }
+
+      .modal-list {
+        margin: 0;
+        padding-left: 18px;
+        color: var(--text-secondary);
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        font-size: 14.5px;
+      }
+
+      .modal-visualizer {
+        display: none;
+        flex-direction: column;
+        gap: 12px;
+        padding: 16px;
+        border-radius: 12px;
+        background-color: var(--bg-code);
+      }
+
+      .modal-visualizer.active {
+        display: flex;
+      }
+
+      .modal-bars {
+        height: 140px;
+        display: flex;
+        align-items: flex-end;
+        gap: 5px;
+      }
+
+      .modal-bar {
+        flex: 1;
+        border-radius: 4px 4px 2px 2px;
+        background: linear-gradient(180deg, var(--accent-secondary) 0%, var(--accent) 100%);
+        transition: height 120ms ease;
+      }
+
+      .modal-bar.active {
+        background: #f59e0b;
+      }
+
+      /* ==========================================================================
+         14. Scroll Fade-In Animation & Reduced Motion Support
+         ========================================================================== */
+      .reveal {
+        opacity: 0;
+        transform: translateY(16px);
+        transition: opacity 480ms cubic-bezier(0.16, 1, 0.3, 1),
+          transform 480ms cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .reveal.in-view {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+        .reveal {
+          opacity: 1;
+          transform: none;
+          transition: none;
+        }
+        .progress-fill {
+          transition: none;
+        }
+        .typing-cursor {
+          animation: none;
+        }
+      }
+
+      /* ==========================================================================
+         15. Non-intrusive Toast Notification
+         ========================================================================== */
+      .toast {
+        position: fixed;
+        right: 20px;
+        bottom: 20px;
+        z-index: 95;
+        max-width: 360px;
+        padding: 12px 16px;
+        border-radius: 10px;
+        background-color: var(--bg-surface);
+        border: 1px solid var(--border-strong);
+        color: var(--text-primary);
+        font-size: 13.5px;
+        box-shadow: var(--shadow-elevated);
+        opacity: 0;
+        transform: translateY(10px);
+        pointer-events: none;
+        transition: opacity 180ms ease, transform 180ms cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .toast.show {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <a href="#main-content" class="sr-only">Skip to main content</a>
+
+    <!-- Sticky 3-Zone Header -->
+    <header class="site-header">
+      <div class="container header-inner">
+        <a href="#hero" class="brand-wordmark">Parth Gurav</a>
+
+        <nav class="nav-desktop" aria-label="Primary navigation">
+          <a href="#about" class="nav-link">About</a>
+          <a href="#skills" class="nav-link">Skills</a>
+          <a href="#projects" class="nav-link">Projects</a>
+          <a href="#education" class="nav-link">Education</a>
+          <a href="#contact" class="nav-link">Contact</a>
+        </nav>
+
+        <div class="header-actions">
+          <button
+            type="button"
+            id="themeToggle"
+            class="theme-toggle"
+            aria-label="Switch to light theme"
+            aria-pressed="false"
+          >
+            <svg
+              id="themeIconSun"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <circle cx="12" cy="12" r="4"></circle>
+              <path d="M12 2v2"></path>
+              <path d="M12 20v2"></path>
+              <path d="m4.93 4.93 1.41 1.41"></path>
+              <path d="m17.66 17.66 1.41 1.41"></path>
+              <path d="M2 12h2"></path>
+              <path d="M20 12h2"></path>
+              <path d="m6.34 17.66-1.41 1.41"></path>
+              <path d="m19.07 4.93-1.41 1.41"></path>
+            </svg>
+            <svg
+              id="themeIconMoon"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+              style="display: none"
+            >
+              <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+            </svg>
+            <span id="themeLabel">Light</span>
+          </button>
+
+          <button
+            type="button"
+            id="mobileMenuBtn"
+            class="mobile-menu-btn"
+            aria-label="Open navigation menu"
+            aria-expanded="false"
+            aria-controls="mobileNavPanel"
+          >
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <line x1="4" x2="20" y1="6" y2="6"></line>
+              <line x1="4" x2="20" y1="12" y2="12"></line>
+              <line x1="4" x2="20" y1="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Mobile Navigation Drawer -->
+    <nav id="mobileNavPanel" class="mobile-nav-panel" aria-label="Mobile navigation">
+      <a href="#about" class="mobile-nav-link">About</a>
+      <a href="#skills" class="mobile-nav-link">Skills</a>
+      <a href="#projects" class="mobile-nav-link">Projects</a>
+      <a href="#education" class="mobile-nav-link">Education</a>
+      <a href="#contact" class="mobile-nav-link">Contact</a>
+    </nav>
+
+    <main id="main-content">
+      <!-- 1. Hero Section -->
+      <section id="hero" class="hero-section">
+        <div class="container">
+          <div class="hero-grid">
+            <div class="hero-content">
+              <div class="hero-identity">
+                <div class="hero-avatar">
+                  <span class="hero-avatar-fallback" aria-hidden="true">PG</span>
+                  <img
+                    src="/assets/aistudio/parth.photo_2cbdba64.jpeg"
+                    alt="Portrait of Parth Gurav"
+                    referrerpolicy="no-referrer"
+                    onerror="this.style.display='none'"
+                  />
+                </div>
+                <div class="hero-name-group">
+                  <p class="hero-kicker">Computer Engineering · Batch of 2029</p>
+                  <h1 class="hero-title">Parth Gurav</h1>
+                </div>
+              </div>
+              <p class="hero-tagline">
+                2nd-Year Computer Engineering Student |
+                <span id="typingText" class="typing-accent">C, C++ &amp; DSA Enthusiast</span>
+                <span class="typing-cursor" aria-hidden="true"></span>
+              </p>
+              <p class="hero-summary">
+                Building reliable command-line systems, efficient algorithms, and responsive desktop
+                GUIs in C and C++. Focused on writing clean, memory-safe code and sharpening
+                problem-solving foundations every day.
+              </p>
+              <div class="hero-actions">
+                <a href="#projects" class="btn btn-primary">
+                  <span>View Projects</span>
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M5 12h14"></path>
+                    <path d="m12 5 7 7-7 7"></path>
+                  </svg>
+                </a>
+                <button type="button" id="downloadResumeBtn" class="btn btn-secondary">
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" x2="12" y1="15" y2="3"></line>
+                  </svg>
+                  <span>Download Resume</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Interactive Hero Showcase -->
+            <div class="hero-visual" aria-label="Interactive algorithm and code preview">
+              <div class="visual-toolbar">
+                <span class="visual-title mono">Algorithm Sandbox</span>
+                <div class="visual-controls">
+                  <div class="segmented-control" role="tablist" aria-label="Preview mode">
+                    <button
+                      type="button"
+                      class="seg-btn active"
+                      id="tabVisualBtn"
+                      role="tab"
+                      aria-selected="true"
+                    >
+                      Visualizer
+                    </button>
+                    <button
+                      type="button"
+                      class="seg-btn"
+                      id="tabCodeBtn"
+                      role="tab"
+                      aria-selected="false"
+                    >
+                      C++ Source
+                    </button>
+                  </div>
+                  <button
+                    type="button"
+                    id="heroSortRunBtn"
+                    class="btn btn-secondary btn-sm"
+                    style="min-height: 32px; padding: 4px 10px; font-size: 12px"
+                  >
+                    Run Sort
+                  </button>
+                </div>
+              </div>
+
+              <div id="heroBarsStage" class="hero-bars-stage" aria-hidden="true"></div>
+
+              <pre id="heroCodePanel" class="hero-code-panel mono"><code>#include &lt;iostream&gt;
+#include &lt;vector&gt;
+
+void quickSort(std::vector&lt;int&gt;&amp; arr, int low, int high) {
+  if (low &gt;= high) return;
+  int pivot = arr[high], i = low - 1;
+  for (int j = low; j &lt; high; ++j) {
+    if (arr[j] &lt;= pivot) std::swap(arr[++i], arr[j]);
+  }
+  std::swap(arr[i + 1], arr[high]);
+  quickSort(arr, low, i);
+  quickSort(arr, i + 2, high);
+}</code></pre>
+
+              <div class="visual-footer">
+                <span id="heroSortStatus">Insertion &amp; Quick Sort array preview</span>
+                <span class="mono">O(n log n) avg</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Full-width Summary Strip -->
+          <div class="hero-metrics-strip">
+            <div class="metric-item">
+              <span class="metric-value tabular-nums">2nd Year</span>
+              <span class="metric-label">Computer Engineering Student</span>
+            </div>
+            <div class="metric-item">
+              <span class="metric-value tabular-nums">9.85 / 10</span>
+              <span class="metric-label">Current CGPA · SPPU, Pune</span>
+            </div>
+            <div class="metric-item">
+              <span class="metric-value tabular-nums">20</span>
+              <span class="metric-label">DSA Problems on LeetCode &amp; GFG</span>
+            </div>
+            <div class="metric-item">
+              <span class="metric-value tabular-nums">4+</span>
+              <span class="metric-label">Core C, C++ &amp; GUI Projects</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. About Section -->
+      <section id="about" class="section reveal">
+        <div class="container">
+          <div class="section-header">
+            <span class="section-kicker">About Me</span>
+            <h2 class="section-title">Grounded in fundamentals, eager to build real software.</h2>
+          </div>
+
+          <div class="about-grid">
+            <div class="about-prose">
+              <p>
+                I am Parth Gurav, a 2nd-year Computer Engineering undergraduate at
+                <strong>Dr. D. Y. Patil College of Engineering and Innovation (SPPU)</strong> in
+                Pune, with a strong focus on systems-oriented programming in C and C++ alongside
+                Data Structures and Algorithms.
+              </p>
+              <p>
+                My current learning goals revolve around mastering trees, graph traversals, dynamic
+                programming, and memory-efficient design, while also exploring applied AI workflows
+                and building clean desktop and financial software tools.
+              </p>
+              <p>
+                I am actively looking for software engineering internships, beginner-friendly
+                open-source repositories, and collaborative student projects where I can contribute
+                dependable code and learn from experienced engineers.
+              </p>
+            </div>
+
+            <div class="about-facts">
+              <div class="fact-row">
+                <span class="fact-key">College</span>
+                <span class="fact-val">Dr. D. Y. Patil College of Engineering &amp; Innovation</span>
+              </div>
+              <div class="fact-row">
+                <span class="fact-key">University &amp; Degree</span>
+                <span class="fact-val">B.E. Computer Engineering · SPPU</span>
+              </div>
+              <div class="fact-row">
+                <span class="fact-key">Primary Languages</span>
+                <span class="fact-val">C · C++ · SQL / Shell</span>
+              </div>
+              <div class="fact-row">
+                <span class="fact-key">Location</span>
+                <span class="fact-val">Pune, Maharashtra, India</span>
+              </div>
+              <div class="fact-row">
+                <span class="fact-key">Graduation Year</span>
+                <span class="fact-val tabular-nums">2029</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. Skills Section -->
+      <section id="skills" class="section reveal">
+        <div class="container">
+          <div class="skills-toolbar">
+            <div class="section-header" style="margin-bottom: 0">
+              <span class="section-kicker">Technical Stack</span>
+              <h2 class="section-title">Core skills &amp; engineering toolkit.</h2>
+            </div>
+
+            <div class="filter-tabs" role="tablist" aria-label="Filter skills by category">
+              <button type="button" class="filter-tab active" data-filter="all" role="tab" aria-selected="true">
+                All
+              </button>
+              <button type="button" class="filter-tab" data-filter="languages" role="tab" aria-selected="false">
+                Languages
+              </button>
+              <button type="button" class="filter-tab" data-filter="core" role="tab" aria-selected="false">
+                DSA &amp; GUI
+              </button>
+              <button type="button" class="filter-tab" data-filter="tools" role="tab" aria-selected="false">
+                Tools &amp; OS
+              </button>
+            </div>
+          </div>
+
+          <div class="skills-grid" id="skillsGrid">
+            <article class="skill-card reveal" data-category="languages" style="--progress: 0.88">
+              <div class="skill-top">
+                <h3 class="skill-name">C Programming</h3>
+                <span class="skill-pct mono">88%</span>
+              </div>
+              <p class="skill-meta">Language · Procedural &amp; Memory</p>
+              <div class="progress-track" role="progressbar" aria-valuenow="88" aria-valuemin="0" aria-valuemax="100" aria-label="C Programming proficiency">
+                <div class="progress-fill"></div>
+              </div>
+              <p class="skill-topics">
+                Pointers, dynamic memory allocation, structs, bitwise logic, and binary file I/O.
+              </p>
+            </article>
+
+            <article class="skill-card reveal" data-category="languages" style="--progress: 0.9">
+              <div class="skill-top">
+                <h3 class="skill-name">C++ &amp; STL</h3>
+                <span class="skill-pct mono">90%</span>
+              </div>
+              <p class="skill-meta">Language · OOP &amp; Generic</p>
+              <div class="progress-track" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" aria-label="C++ and STL proficiency">
+                <div class="progress-fill"></div>
+              </div>
+              <p class="skill-topics">
+                Classes, inheritance, polymorphism, templates, vectors, maps, sets, and custom comparators.
+              </p>
+            </article>
+
+            <article class="skill-card reveal" data-category="core" style="--progress: 0.85">
+              <div class="skill-top">
+                <h3 class="skill-name">Data Structures &amp; Algorithms</h3>
+                <span class="skill-pct mono">85%</span>
+              </div>
+              <p class="skill-meta">Core CS · Problem Solving</p>
+              <div class="progress-track" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" aria-label="Data Structures and Algorithms proficiency">
+                <div class="progress-fill"></div>
+              </div>
+              <p class="skill-topics">
+                Arrays, linked lists, stacks, queues, binary trees, sorting, recursion, and graph basics.
+              </p>
+            </article>
+
+            <article class="skill-card reveal" data-category="core" style="--progress: 0.75">
+              <div class="skill-top">
+                <h3 class="skill-name">GUI Development</h3>
+                <span class="skill-pct mono">75%</span>
+              </div>
+              <p class="skill-meta">Desktop · Event-Driven UI</p>
+              <div class="progress-track" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" aria-label="GUI Development proficiency">
+                <div class="progress-fill"></div>
+              </div>
+              <p class="skill-topics">
+                Building desktop interfaces and algorithm visualizers using C++ (Qt / SFML / ImGui) and web UIs.
+              </p>
+            </article>
+
+            <article class="skill-card reveal" data-category="tools" style="--progress: 0.82">
+              <div class="skill-top">
+                <h3 class="skill-name">Git &amp; GitHub</h3>
+                <span class="skill-pct mono">82%</span>
+              </div>
+              <p class="skill-meta">Workflow · Version Control</p>
+              <div class="progress-track" role="progressbar" aria-valuenow="82" aria-valuemin="0" aria-valuemax="100" aria-label="Git and GitHub proficiency">
+                <div class="progress-fill"></div>
+              </div>
+              <p class="skill-topics">
+                Branching, pull requests, rebasing, resolving merge conflicts, and clean commit histories.
+              </p>
+            </article>
+
+            <article class="skill-card reveal" data-category="tools" style="--progress: 0.78">
+              <div class="skill-top">
+                <h3 class="skill-name">Linux Basics</h3>
+                <span class="skill-pct mono">78%</span>
+              </div>
+              <p class="skill-meta">Environment · CLI &amp; Tooling</p>
+              <div class="progress-track" role="progressbar" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100" aria-label="Linux Basics proficiency">
+                <div class="progress-fill"></div>
+              </div>
+              <p class="skill-topics">
+                Bash shell navigation, file permissions, GCC/G++ compilation, Makefiles, and GDB debugging.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. Projects Section -->
+      <section id="projects" class="section reveal">
+        <div class="container">
+          <div class="section-header">
+            <span class="section-kicker">Selected Projects</span>
+            <h2 class="section-title">Hands-on builds in C, C++, and GUI design.</h2>
+            <p class="section-lead">
+              Click any project's details button to inspect its architecture, data structures, or
+              try an interactive preview. Replace the placeholder GitHub URLs with your repositories.
+            </p>
+          </div>
+
+          <div class="projects-grid">
+            <!-- Project 1 -->
+            <article class="project-card reveal">
+              <div class="project-preview" aria-hidden="true">
+                <svg width="100%" height="124" viewBox="0 0 360 124" fill="none">
+                  <rect x="12" y="10" width="336" height="104" rx="10" fill="#111827" stroke="#334155" />
+                  <rect x="28" y="26" width="94" height="72" rx="6" fill="#0f172a" stroke="#14b8a6" stroke-opacity="0.55" />
+                  <line x1="40" y1="44" x2="108" y2="44" stroke="#14b8a6" stroke-width="3" stroke-linecap="round" />
+                  <line x1="40" y1="58" x2="96" y2="58" stroke="#64748b" stroke-width="2" stroke-linecap="round" />
+                  <line x1="40" y1="70" x2="102" y2="70" stroke="#64748b" stroke-width="2" stroke-linecap="round" />
+                  <line x1="40" y1="82" x2="88" y2="82" stroke="#64748b" stroke-width="2" stroke-linecap="round" />
+                  <rect x="138" y="26" width="194" height="18" rx="4" fill="#1e293b" />
+                  <rect x="138" y="52" width="194" height="18" rx="4" fill="#1e293b" />
+                  <rect x="138" y="78" width="128" height="20" rx="4" fill="#14b8a6" fill-opacity="0.22" stroke="#14b8a6" />
+                </svg>
+              </div>
+              <div class="project-body">
+                <p class="project-kicker">C++ · Object-Oriented Design · Binary File I/O</p>
+                <h3 class="project-title">Library Management System in C++</h3>
+                <p class="project-desc">
+                  Menu-driven library catalog supporting book issuance, due-date fine calculations,
+                  member accounts, and persistent binary storage using OOP classes and STL maps.
+                </p>
+                <div class="project-links">
+                  <a
+                    href="[GitHub URL - Library Management System]"
+                    class="project-link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-placeholder-link="GitHub Repository (Library Management System)"
+                  >
+                    <span>GitHub Repo</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                      <path d="M7 17 17 7"></path>
+                      <path d="M7 7h10v10"></path>
+                    </svg>
+                  </a>
+                  <button type="button" class="project-link project-link-action" data-project-modal="library">
+                    Architecture &amp; Details
+                  </button>
+                </div>
+              </div>
+            </article>
+
+            <!-- Project 2 -->
+            <article class="project-card reveal">
+              <div class="project-preview" aria-hidden="true">
+                <svg width="100%" height="124" viewBox="0 0 360 124" fill="none">
+                  <rect x="12" y="10" width="336" height="104" rx="10" fill="#111827" stroke="#334155" />
+                  <rect x="34" y="72" width="22" height="28" rx="3" fill="#0284c7" />
+                  <rect x="64" y="42" width="22" height="58" rx="3" fill="#14b8a6" />
+                  <rect x="94" y="56" width="22" height="44" rx="3" fill="#0284c7" />
+                  <rect x="124" y="28" width="22" height="72" rx="3" fill="#f59e0b" />
+                  <rect x="154" y="64" width="22" height="36" rx="3" fill="#0284c7" />
+                  <rect x="184" y="34" width="22" height="66" rx="3" fill="#14b8a6" />
+                  <rect x="214" y="50" width="22" height="50" rx="3" fill="#0284c7" />
+                  <rect x="244" y="24" width="22" height="76" rx="3" fill="#14b8a6" />
+                  <rect x="274" y="46" width="22" height="54" rx="3" fill="#0284c7" />
+                  <rect x="304" y="38" width="22" height="62" rx="3" fill="#14b8a6" />
+                </svg>
+              </div>
+              <div class="project-body">
+                <p class="project-kicker">C++ / GUI · Algorithms · Real-Time Rendering</p>
+                <h3 class="project-title">Sorting Visualizer with GUI</h3>
+                <p class="project-desc">
+                  Interactive graphical visualizer demonstrating Bubble, Selection, Insertion, Merge,
+                  and Quick Sort step-by-step with adjustable array sizes, speed controls, and comparisons.
+                </p>
+                <div class="project-links">
+                  <a
+                    href="[GitHub URL - Sorting Visualizer]"
+                    class="project-link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-placeholder-link="GitHub Repository (Sorting Visualizer)"
+                  >
+                    <span>GitHub Repo</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                      <path d="M7 17 17 7"></path>
+                      <path d="M7 7h10v10"></path>
+                    </svg>
+                  </a>
+                  <button type="button" class="project-link project-link-action" data-project-modal="sorting">
+                    Launch Live Demo
+                  </button>
+                </div>
+              </div>
+            </article>
+
+            <!-- Project 3 -->
+            <article class="project-card reveal">
+              <div class="project-preview" aria-hidden="true">
+                <svg width="100%" height="124" viewBox="0 0 360 124" fill="none">
+                  <rect x="12" y="10" width="336" height="104" rx="10" fill="#111827" stroke="#334155" />
+                  <rect x="28" y="24" width="76" height="36" rx="6" fill="#0f172a" stroke="#38bdf8" />
+                  <line x1="104" y1="42" x2="142" y2="42" stroke="#14b8a6" stroke-width="2" />
+                  <polygon points="142,38 150,42 142,46" fill="#14b8a6" />
+                  <rect x="150" y="24" width="76" height="36" rx="6" fill="#0f172a" stroke="#38bdf8" />
+                  <line x1="226" y1="42" x2="264" y2="42" stroke="#14b8a6" stroke-width="2" />
+                  <polygon points="264,38 272,42 264,46" fill="#14b8a6" />
+                  <rect x="272" y="24" width="60" height="36" rx="6" fill="#0f172a" stroke="#14b8a6" />
+                  <rect x="28" y="76" width="304" height="22" rx="4" fill="#1e293b" />
+                </svg>
+              </div>
+              <div class="project-body">
+                <p class="project-kicker">C · Pointers · Linked Lists · Structs</p>
+                <h3 class="project-title">Student Record System in C</h3>
+                <p class="project-desc">
+                  Fast, memory-safe student database in pure C featuring dynamic linked-list nodes,
+                  binary search by roll number, grade computation, and zero-leak cleanup on exit.
+                </p>
+                <div class="project-links">
+                  <a
+                    href="[GitHub URL - Student Record System]"
+                    class="project-link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-placeholder-link="GitHub Repository (Student Record System)"
+                  >
+                    <span>GitHub Repo</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                      <path d="M7 17 17 7"></path>
+                      <path d="M7 7h10v10"></path>
+                    </svg>
+                  </a>
+                  <button type="button" class="project-link project-link-action" data-project-modal="student">
+                    Architecture &amp; Details
+                  </button>
+                </div>
+              </div>
+            </article>
+
+            <!-- Project 4 -->
+            <article class="project-card reveal">
+              <div class="project-preview" aria-hidden="true">
+                <svg width="100%" height="124" viewBox="0 0 360 124" fill="none">
+                  <rect x="12" y="10" width="336" height="104" rx="10" fill="#111827" stroke="#334155" />
+                  <rect x="28" y="24" width="110" height="76" rx="6" fill="#0f172a" stroke="#14b8a6" stroke-opacity="0.6" />
+                  <line x1="42" y1="42" x2="112" y2="42" stroke="#14b8a6" stroke-width="3" stroke-linecap="round" />
+                  <line x1="42" y1="58" x2="122" y2="58" stroke="#64748b" stroke-width="2" stroke-linecap="round" />
+                  <line x1="42" y1="72" x2="96" y2="72" stroke="#64748b" stroke-width="2" stroke-linecap="round" />
+                  <polyline points="158,86 196,64 232,74 272,42 324,32" fill="none" stroke="#38bdf8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+                  <circle cx="196" cy="64" r="4" fill="#14b8a6" />
+                  <circle cx="272" cy="42" r="4" fill="#14b8a6" />
+                  <circle cx="324" cy="32" r="5" fill="#f59e0b" />
+                </svg>
+              </div>
+              <div class="project-body">
+                <p class="project-kicker">FinTech · AI &amp; Data Workflows · GitHub Repository</p>
+                <h3 class="project-title">Financial Assistant</h3>
+                <p class="project-desc">
+                  Personal finance and BFSI assistant built to help organize financial workflows,
+                  track insights, and apply structured logic for smarter money and risk decisions.
+                </p>
+                <div class="project-links">
+                  <a
+                    href="https://github.com/parthgurav1306-ship-it/financial_assistant"
+                    class="project-link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <span>GitHub Repo</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                      <path d="M7 17 17 7"></path>
+                      <path d="M7 7h10v10"></path>
+                    </svg>
+                  </a>
+                  <button type="button" class="project-link project-link-action" data-project-modal="financial">
+                    Architecture &amp; Details
+                  </button>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. Education & Achievements Section -->
+      <section id="education" class="section reveal">
+        <div class="container">
+          <div class="section-header">
+            <span class="section-kicker">Education &amp; Milestones</span>
+            <h2 class="section-title">Academic track, internships, and coding consistency.</h2>
+          </div>
+
+          <div class="edu-layout">
+            <div class="timeline">
+              <article class="timeline-item reveal">
+                <span class="timeline-period mono">2025 – 2029 · 2nd Year</span>
+                <h3 class="timeline-title">B.E. in Computer Engineering</h3>
+                <p class="timeline-org">
+                  Dr. D. Y. Patil College of Engineering and Innovation · Savitribai Phule Pune University (SPPU)
+                </p>
+                <p class="timeline-detail tabular-nums">
+                  Pune, Maharashtra · Current CGPA: <strong>9.85 / 10.0</strong> · Relevant
+                  Coursework: Data Structures, Object-Oriented Programming in C++, Digital Logic,
+                  Discrete Math, and Operating Systems Basics.
+                </p>
+              </article>
+
+              <article class="timeline-item reveal">
+                <span class="timeline-period mono">Aug – Sep 2026 · Issued Nov 04, 2026</span>
+                <h3 class="timeline-title">Virtual Internship Program — AI Specialist (BFSI)</h3>
+                <p class="timeline-org">
+                  SmartBridge Educational Services · NASSCOM FutureSkills Prime
+                </p>
+                <p class="timeline-detail">
+                  Completed industry-integrated hands-on training in AI in Financial Services, Risk
+                  &amp; Fraud Detection, Data Analytics for BFSI, and Insurance Workflows.
+                  Certificate ID: <span class="mono">VIP-BFSI-2026-0223</span>.
+                </p>
+                <div style="margin-top: 8px">
+                  <a
+                    href="/assets/aistudio/1795087136395_fb9047c9.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="stat-link"
+                  >
+                    <span>View Certificate (PDF)</span>
+                    <span aria-hidden="true">-&gt;</span>
+                  </a>
+                </div>
+              </article>
+
+              <article class="timeline-item reveal">
+                <span class="timeline-period mono">2025 · Higher Secondary (Class XII)</span>
+                <h3 class="timeline-title">Class XII (Science)</h3>
+                <p class="timeline-org">Ramkrushna Paramhans Mahavidyalay, Dharashiv</p>
+                <p class="timeline-detail tabular-nums">
+                  Score: <strong>69.50%</strong> · Built early foundations in mathematics, logic,
+                  and problem solving before transitioning to Computer Engineering.
+                </p>
+              </article>
+            </div>
+
+            <aside class="stats-column" aria-label="Competitive coding statistics">
+              <div class="stat-card reveal">
+                <div class="stat-head">
+                  <span class="stat-platform">LeetCode</span>
+                  <span class="stat-handle mono">[LeetCode Username]</span>
+                </div>
+                <span class="stat-figure tabular-nums">10 Solved</span>
+                <p class="stat-sub">
+                  Practicing Arrays, Two Pointers, Recursion, and Binary Search fundamentals.
+                </p>
+                <a
+                  href="[LeetCode Profile URL]"
+                  class="stat-link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-placeholder-link="LeetCode Profile"
+                >
+                  <span>View LeetCode Profile</span>
+                  <span aria-hidden="true">-&gt;</span>
+                </a>
+              </div>
+
+              <div class="stat-card reveal">
+                <div class="stat-head">
+                  <span class="stat-platform">GeeksforGeeks</span>
+                  <span class="stat-handle mono">[GFG Username]</span>
+                </div>
+                <span class="stat-figure tabular-nums">10 Solved</span>
+                <p class="stat-sub">
+                  DSA fundamentals at Dr. D. Y. Patil College of Engineering &amp; Innovation, Pune.
+                </p>
+                <a
+                  href="[GFG Profile URL]"
+                  class="stat-link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-placeholder-link="GeeksforGeeks Profile"
+                >
+                  <span>View GFG Profile</span>
+                  <span aria-hidden="true">-&gt;</span>
+                </a>
+              </div>
+
+              <div class="stat-card reveal">
+                <div class="stat-head">
+                  <span class="stat-platform">GitHub</span>
+                  <span class="stat-handle mono">@parthgurav1306-ship-it</span>
+                </div>
+                <span class="stat-figure tabular-nums">1 Repository</span>
+                <p class="stat-sub">
+                  Active C, C++, and DSA practice logs, mini utilities, and GUI experiments.
+                </p>
+                <a
+                  href="https://github.com/parthgurav1306-ship-it"
+                  class="stat-link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span>View GitHub Profile</span>
+                  <span aria-hidden="true">-&gt;</span>
+                </a>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. Contact Section -->
+      <section id="contact" class="section reveal">
+        <div class="container">
+          <div class="section-header">
+            <span class="section-kicker">Get in Touch</span>
+            <h2 class="section-title">Open to internships, open-source, and project collaboration.</h2>
+            <p class="section-lead">
+              Have an internship opportunity, feedback on my projects, or want to collaborate on a
+              C/C++ build? Send a message below or connect directly.
+            </p>
+          </div>
+
+          <div class="contact-grid">
+            <div class="contact-channels">
+              <div class="channel-card">
+                <div class="channel-info">
+                  <span class="channel-label">Email</span>
+                  <span class="channel-value mono" id="contactEmailText">parthgurav1306@gmail.com</span>
+                </div>
+                <button type="button" id="copyEmailBtn" class="btn btn-secondary btn-sm">
+                  Copy Email
+                </button>
+              </div>
+
+              <a
+                href="https://github.com/parthgurav1306-ship-it"
+                class="channel-card"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <div class="channel-info">
+                  <span class="channel-label">GitHub</span>
+                  <span class="channel-value">github.com/parthgurav1306-ship-it</span>
+                </div>
+                <span class="btn btn-secondary btn-sm">Open</span>
+              </a>
+
+              <a
+                href="https://www.linkedin.com/in/parth-gurav-99484b407"
+                class="channel-card"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <div class="channel-info">
+                  <span class="channel-label">LinkedIn</span>
+                  <span class="channel-value">linkedin.com/in/parth-gurav-99484b407</span>
+                </div>
+                <span class="btn btn-secondary btn-sm">Open</span>
+              </a>
+            </div>
+
+            <form id="contactForm" class="contact-form" novalidate>
+              <div class="form-group">
+                <label for="contactName" class="form-label">Your Name</label>
+                <input
+                  type="text"
+                  id="contactName"
+                  name="name"
+                  class="form-control"
+                  placeholder="Enter your name"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="contactEmail" class="form-label">Email Address</label>
+                <input
+                  type="email"
+                  id="contactEmail"
+                  name="email"
+                  class="form-control"
+                  placeholder="you@example.com"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="contactMessage" class="form-label">Message</label>
+                <textarea
+                  id="contactMessage"
+                  name="message"
+                  class="form-control"
+                  placeholder="Share details about an internship, open-source project, or question..."
+                  required
+                ></textarea>
+              </div>
+
+              <div id="formFeedback" class="form-feedback" role="status" aria-live="polite"></div>
+
+              <button type="submit" class="btn btn-primary" style="align-self: flex-start">
+                Send Message
+              </button>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Quiet Footer -->
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <span>&copy; <span id="currentYear">2026</span> Parth Gurav. Built with HTML, CSS &amp; JavaScript.</span>
+        <div class="footer-links">
+          <a href="#hero">Back to Top</a>
+          <a href="https://github.com/parthgurav1306-ship-it" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href="https://www.linkedin.com/in/parth-gurav-99484b407" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a href="mailto:parthgurav1306@gmail.com">Email</a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Interactive Project Details / Live Demo Modal -->
+    <div id="projectModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-dialog">
+        <div class="modal-header">
+          <div>
+            <p id="modalKicker" class="project-kicker" style="margin-bottom: 4px"></p>
+            <h3 id="modalTitle" class="project-title"></h3>
+          </div>
+          <button type="button" id="closeModalBtn" class="modal-close" aria-label="Close modal">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M18 6 6 18"></path>
+              <path d="m6 6 12 12"></path>
+            </svg>
+          </button>
+        </div>
+
+        <p id="modalSummary" class="section-lead"></p>
+
+        <!-- Embedded Live Sorting Demo (visible only for Sorting Visualizer) -->
+        <div id="modalVisualizer" class="modal-visualizer">
+          <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px">
+            <span class="mono" style="font-size: 12.5px; color: #e2e8f0" id="modalSortStatus">
+              Live Quick / Bubble Preview
+            </span>
+            <div style="display: flex; gap: 8px">
+              <button type="button" id="modalShuffleBtn" class="btn btn-secondary btn-sm" style="min-height: 32px; padding: 4px 10px; font-size: 12px">
+                Shuffle
+              </button>
+              <button type="button" id="modalSortBtn" class="btn btn-primary btn-sm" style="min-height: 32px; padding: 4px 12px; font-size: 12px">
+                Sort Now
+              </button>
+            </div>
+          </div>
+          <div id="modalBars" class="modal-bars"></div>
+        </div>
+
+        <div>
+          <h4 style="font-size: 14.5px; margin-bottom: 8px">Implementation Highlights</h4>
+          <ul id="modalHighlights" class="modal-list"></ul>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 10px; padding-top: 8px; border-top: 1px solid var(--border-hairline)">
+          <a id="modalRepoLink" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">
+            Open Repository
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div id="siteToast" class="toast" role="status" aria-live="polite"></div>
+
+    <script>
+      (() => {
+        "use strict";
+
+        /* ========================================================================
+           1. Theme Toggle (Dark default + Light toggle + localStorage persistence)
+           ======================================================================== */
+        const rootEl = document.documentElement;
+        const themeToggleBtn = document.getElementById("themeToggle");
+        const themeLabel = document.getElementById("themeLabel");
+        const iconSun = document.getElementById("themeIconSun");
+        const iconMoon = document.getElementById("themeIconMoon");
+
+        function applyTheme(theme) {
+          rootEl.setAttribute("data-theme", theme);
+          const isDark = theme === "dark";
+          themeLabel.textContent = isDark ? "Light" : "Dark";
+          themeToggleBtn.setAttribute(
+            "aria-label",
+            isDark ? "Switch to light theme" : "Switch to dark theme"
+          );
+          themeToggleBtn.setAttribute("aria-pressed", String(!isDark));
+          iconSun.style.display = isDark ? "inline" : "none";
+          iconMoon.style.display = isDark ? "none" : "inline";
+        }
+
+        const savedTheme = localStorage.getItem("parth-portfolio-theme");
+        applyTheme(savedTheme === "light" ? "light" : "dark");
+
+        themeToggleBtn.addEventListener("click", () => {
+          const next = rootEl.getAttribute("data-theme") === "dark" ? "light" : "dark";
+          applyTheme(next);
+          localStorage.setItem("parth-portfolio-theme", next);
+        });
+
+        /* ========================================================================
+           2. Mobile Menu Drawer
+           ======================================================================== */
+        const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+        const mobileNavPanel = document.getElementById("mobileNavPanel");
+        const mobileLinks = document.querySelectorAll(".mobile-nav-link");
+
+        function setMobileMenu(open) {
+          mobileNavPanel.classList.toggle("open", open);
+          mobileMenuBtn.setAttribute("aria-expanded", String(open));
+          mobileMenuBtn.setAttribute("aria-label", open ? "Close navigation menu" : "Open navigation menu");
+        }
+
+        mobileMenuBtn.addEventListener("click", () => {
+          setMobileMenu(!mobileNavPanel.classList.contains("open"));
+        });
+
+        mobileLinks.forEach((link) => {
+          link.addEventListener("click", () => setMobileMenu(false));
+        });
+
+        /* ========================================================================
+           3. Active Navigation Highlighting on Scroll
+           ======================================================================== */
+        const sections = document.querySelectorAll("main section[id]");
+        const navLinks = document.querySelectorAll(".nav-link, .mobile-nav-link");
+
+        const navObserver = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                const id = entry.target.getAttribute("id");
+                navLinks.forEach((link) => {
+                  const active = link.getAttribute("href") === `#${id}`;
+                  link.classList.toggle("active", active);
+                });
+              }
+            });
+          },
+          { rootMargin: "-35% 0px -55% 0px", threshold: 0 }
+        );
+
+        sections.forEach((sec) => navObserver.observe(sec));
+
+        /* ========================================================================
+           4. Typing Effect in Hero Tagline
+           ======================================================================== */
+        const typingEl = document.getElementById("typingText");
+        const phrases = [
+          "C, C++ & DSA Enthusiast",
+          "Systems & Algorithm Builder",
+          "GUI & Linux Learner",
+          "Open-Source & Internship Ready",
+        ];
+        const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        if (!prefersReducedMotion && typingEl) {
+          let phraseIdx = 0;
+          let charIdx = phrases[0].length;
+          let deleting = true;
+
+          const tick = () => {
+            const current = phrases[phraseIdx];
+            if (deleting) {
+              charIdx--;
+              typingEl.textContent = current.slice(0, charIdx);
+              if (charIdx === 0) {
+                deleting = false;
+                phraseIdx = (phraseIdx + 1) % phrases.length;
+                setTimeout(tick, 320);
+                return;
+              }
+              setTimeout(tick, 36);
+            } else {
+              charIdx++;
+              typingEl.textContent = current.slice(0, charIdx);
+              if (charIdx === current.length) {
+                deleting = true;
+                setTimeout(tick, 1800);
+                return;
+              }
+              setTimeout(tick, 58);
+            }
+          };
+
+          setTimeout(tick, 2000);
+        }
+
+        /* ========================================================================
+           5. Hero Interactive Algorithm Sandbox (Visualizer + C++ Source Tabs)
+           ======================================================================== */
+        const tabVisualBtn = document.getElementById("tabVisualBtn");
+        const tabCodeBtn = document.getElementById("tabCodeBtn");
+        const heroBarsStage = document.getElementById("heroBarsStage");
+        const heroCodePanel = document.getElementById("heroCodePanel");
+        const heroSortRunBtn = document.getElementById("heroSortRunBtn");
+        const heroSortStatus = document.getElementById("heroSortStatus");
+
+        let heroArr = [44, 82, 26, 95, 58, 34, 74, 18, 66, 90, 48, 79];
+        let heroSorting = false;
+
+        function renderHeroBars(activeA = -1, activeB = -1, sortedFrom = heroArr.length) {
+          heroBarsStage.innerHTML = "";
+          heroArr.forEach((val, idx) => {
+            const bar = document.createElement("div");
+            bar.className = "hero-bar";
+            if (idx === activeA || idx === activeB) bar.classList.add("comparing");
+            else if (idx >= sortedFrom) bar.classList.add("sorted");
+            bar.style.height = `${val}%`;
+            heroBarsStage.appendChild(bar);
+          });
+        }
+
+        renderHeroBars();
+
+        tabVisualBtn.addEventListener("click", () => {
+          tabVisualBtn.classList.add("active");
+          tabCodeBtn.classList.remove("active");
+          tabVisualBtn.setAttribute("aria-selected", "true");
+          tabCodeBtn.setAttribute("aria-selected", "false");
+          heroBarsStage.classList.remove("hidden");
+          heroCodePanel.classList.remove("active");
+          heroSortRunBtn.style.display = "inline-flex";
+        });
+
+        tabCodeBtn.addEventListener("click", () => {
+          tabCodeBtn.classList.add("active");
+          tabVisualBtn.classList.remove("active");
+          tabCodeBtn.setAttribute("aria-selected", "true");
+          tabVisualBtn.setAttribute("aria-selected", "false");
+          heroBarsStage.classList.add("hidden");
+          heroCodePanel.classList.add("active");
+          heroSortRunBtn.style.display = "none";
+        });
+
+        const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+        heroSortRunBtn.addEventListener("click", async () => {
+          if (heroSorting) return;
+          heroSorting = true;
+          heroSortRunBtn.disabled = true;
+          heroArr = Array.from({ length: 12 }, () => Math.floor(Math.random() * 78) + 18);
+          renderHeroBars();
+          heroSortStatus.textContent = "Sorting array via Bubble/Pass step...";
+
+          for (let i = 0; i < heroArr.length; i++) {
+            for (let j = 0; j < heroArr.length - i - 1; j++) {
+              renderHeroBars(j, j + 1, heroArr.length - i);
+              await sleep(65);
+              if (heroArr[j] > heroArr[j + 1]) {
+                [heroArr[j], heroArr[j + 1]] = [heroArr[j + 1], heroArr[j]];
+                renderHeroBars(j, j + 1, heroArr.length - i);
+                await sleep(65);
+              }
+            }
+          }
+          renderHeroBars(-1, -1, 0);
+          heroSortStatus.textContent = "Sorted ascending — click Run Sort to shuffle & replay";
+          heroSortRunBtn.disabled = false;
+          heroSorting = false;
+        });
+
+        /* ========================================================================
+           6. Scroll Fade-In Observer (Content + Skill Progress Bars)
+           ======================================================================== */
+        const revealEls = document.querySelectorAll(".reveal");
+        const revealObserver = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("in-view");
+                revealObserver.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.12 }
+        );
+
+        revealEls.forEach((el) => revealObserver.observe(el));
+
+        /* ========================================================================
+           7. Skills Category Filter Tabs
+           ======================================================================== */
+        const filterTabs = document.querySelectorAll(".filter-tab");
+        const skillCards = document.querySelectorAll(".skill-card");
+
+        filterTabs.forEach((tab) => {
+          tab.addEventListener("click", () => {
+            const category = tab.getAttribute("data-filter");
+            filterTabs.forEach((btn) => {
+              const isSelected = btn === tab;
+              btn.classList.toggle("active", isSelected);
+              btn.setAttribute("aria-selected", String(isSelected));
+            });
+
+            skillCards.forEach((card) => {
+              const matches = category === "all" || card.getAttribute("data-category") === category;
+              card.classList.toggle("hidden-skill", !matches);
+              if (matches) card.classList.add("in-view");
+            });
+          });
+        });
+
+        /* ========================================================================
+           8. Project Details Modal + Embedded Interactive Sorting Demo
+           ======================================================================== */
+        const projectDetails = {
+          library: {
+            kicker: "C++ · Object-Oriented Design · Binary File I/O",
+            title: "Library Management System in C++",
+            summary:
+              "A console-based library administration utility built around clean class encapsulation, persistent binary records, and fast ISBN lookup.",
+            repoUrl: "[GitHub URL - Library Management System]",
+            highlights: [
+              "Designed Book, Member, and Transaction classes with strict encapsulation and input validation.",
+              "Persisted catalog records to binary files (fstream) so state survives across sessions.",
+              "Indexed books by ISBN using std::unordered_map for O(1) average lookup during issue and return.",
+              "Automated overdue fine calculation using date delta helpers.",
+            ],
+            hasDemo: false,
+          },
+          sorting: {
+            kicker: "C++ / GUI · Algorithms · Real-Time Visualization",
+            title: "Sorting Visualizer with GUI",
+            summary:
+              "An interactive desktop and visual sorting workbench comparing Quadratic and Divide-and-Conquer algorithms in real time.",
+            repoUrl: "[GitHub URL - Sorting Visualizer]",
+            highlights: [
+              "Implemented Bubble, Selection, Insertion, Merge, and Quick Sort with visual comparison markers.",
+              "Added live speed slider, array-size controls, and comparison/swap counters.",
+              "Separated algorithm state machine from the rendering loop for smooth frame updates.",
+            ],
+            hasDemo: true,
+          },
+          student: {
+            kicker: "C · Dynamic Memory · Linked Lists · File Persistence",
+            title: "Student Record System in C",
+            summary:
+              "A lightweight, zero-dependency student information system engineered in ANSI C with manual memory management and structured file storage.",
+            repoUrl: "[GitHub URL - Student Record System]",
+            highlights: [
+              "Managed variable-length student cohorts using singly linked lists allocated via malloc/calloc.",
+              "Implemented insert, update, delete, and roll-number search with clean pointer traversal.",
+              "Verified zero memory leaks by freeing all dynamically allocated nodes before program exit.",
+            ],
+            hasDemo: false,
+          },
+          financial: {
+            kicker: "FinTech · AI & Data Workflows · GitHub Repository",
+            title: "Financial Assistant",
+            summary:
+              "A practical financial assistant project designed to streamline financial workflows, track spending/budget patterns, and apply structured analytics aligned with BFSI concepts.",
+            repoUrl: "https://github.com/parthgurav1306-ship-it/financial_assistant",
+            highlights: [
+              "Hosted publicly on GitHub at parthgurav1306-ship-it/financial_assistant.",
+              "Focuses on clean financial tracking, structured data handling, and assistant workflows.",
+              "Built alongside industry-aligned BFSI AI and Data Analytics coursework.",
+            ],
+            hasDemo: false,
+          },
+        };
+
+        const modalEl = document.getElementById("projectModal");
+        const closeModalBtn = document.getElementById("closeModalBtn");
+        const modalKicker = document.getElementById("modalKicker");
+        const modalTitle = document.getElementById("modalTitle");
+        const modalSummary = document.getElementById("modalSummary");
+        const modalHighlights = document.getElementById("modalHighlights");
+        const modalRepoLink = document.getElementById("modalRepoLink");
+        const modalVisualizer = document.getElementById("modalVisualizer");
+        const modalBars = document.getElementById("modalBars");
+        const modalShuffleBtn = document.getElementById("modalShuffleBtn");
+        const modalSortBtn = document.getElementById("modalSortBtn");
+        const modalSortStatus = document.getElementById("modalSortStatus");
+
+        let modalArr = [];
+        let modalSorting = false;
+
+        function initModalBars() {
+          modalArr = Array.from({ length: 18 }, () => Math.floor(Math.random() * 82) + 14);
+          renderModalBars();
+          modalSortStatus.textContent = "Ready — click Sort Now to run Quick/Selection pass";
+        }
+
+        function renderModalBars(hiA = -1, hiB = -1) {
+          modalBars.innerHTML = "";
+          modalArr.forEach((v, idx) => {
+            const bar = document.createElement("div");
+            bar.className = "modal-bar";
+            if (idx === hiA || idx === hiB) bar.classList.add("active");
+            bar.style.height = `${v}%`;
+            modalBars.appendChild(bar);
+          });
+        }
+
+        function openProjectModal(key) {
+          const data = projectDetails[key];
+          if (!data) return;
+          modalKicker.textContent = data.kicker;
+          modalTitle.textContent = data.title;
+          modalSummary.textContent = data.summary;
+          modalRepoLink.setAttribute("href", data.repoUrl);
+          modalHighlights.innerHTML = data.highlights.map((h) => `<li>${h}</li>`).join("");
+          modalVisualizer.classList.toggle("active", data.hasDemo);
+          if (data.hasDemo) initModalBars();
+          modalEl.classList.add("open");
+          closeModalBtn.focus();
+        }
+
+        function closeProjectModal() {
+          modalEl.classList.remove("open");
+          modalSorting = false;
+        }
+
+        document.querySelectorAll("[data-project-modal]").forEach((btn) => {
+          btn.addEventListener("click", () => openProjectModal(btn.getAttribute("data-project-modal")));
+        });
+
+        closeModalBtn.addEventListener("click", closeProjectModal);
+        modalEl.addEventListener("click", (e) => {
+          if (e.target === modalEl) closeProjectModal();
+        });
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape" && modalEl.classList.contains("open")) closeProjectModal();
+        });
+
+        modalShuffleBtn.addEventListener("click", () => {
+          if (!modalSorting) initModalBars();
+        });
+
+        modalSortBtn.addEventListener("click", async () => {
+          if (modalSorting) return;
+          modalSorting = true;
+          modalSortBtn.disabled = true;
+          modalSortStatus.textContent = "Sorting via Selection Sort...";
+          for (let i = 0; i < modalArr.length - 1; i++) {
+            if (!modalEl.classList.contains("open")) break;
+            let minIdx = i;
+            for (let j = i + 1; j < modalArr.length; j++) {
+              renderModalBars(minIdx, j);
+              await sleep(35);
+              if (modalArr[j] < modalArr[minIdx]) minIdx = j;
+            }
+            if (minIdx !== i) {
+              [modalArr[i], modalArr[minIdx]] = [modalArr[minIdx], modalArr[i]];
+            }
+          }
+          renderModalBars();
+          modalSortStatus.textContent = "Sorted ascending";
+          modalSortBtn.disabled = false;
+          modalSorting = false;
+        });
+
+        /* ========================================================================
+           9. Download Resume Generator (Clean Plain-Text / Printable Resume)
+           ======================================================================== */
+        const downloadResumeBtn = document.getElementById("downloadResumeBtn");
+        downloadResumeBtn.addEventListener("click", () => {
+          const resumeContent = [
+            "PARTH GURAV",
+            "2nd-Year Computer Engineering Student | C, C++ & DSA Enthusiast",
+            "College: Dr. D. Y. Patil College of Engineering and Innovation (SPPU) | Location: Pune, India",
+            "Email: parthgurav1306@gmail.com | GitHub: https://github.com/parthgurav1306-ship-it | LinkedIn: https://www.linkedin.com/in/parth-gurav-99484b407",
+            "",
+            "SUMMARY",
+            "2nd-year Computer Engineering student (Batch of 2029) focused on C, C++, Data Structures & Algorithms,",
+            "and desktop GUI development. Actively seeking internships, open-source contributions,",
+            "and engineering collaborations.",
+            "",
+            "TECHNICAL SKILLS",
+            "- Languages: C (Pointers, Memory, File I/O), C++ (OOP, STL, Templates)",
+            "- Core CS: Data Structures & Algorithms (Trees, Graphs, Sorting, Recursion, DP)",
+            "- GUI & Tools: C++ GUI Development (Qt / SFML / ImGui), Git, GitHub, Linux CLI, GCC/G++",
+            "",
+            "PROJECTS",
+            "1. Library Management System in C++ - OOP catalog, STL map indexing, binary file storage.",
+            "2. Sorting Visualizer with GUI - Real-time visualization of sorting algorithms with speed controls.",
+            "3. Student Record System in C - Dynamic linked lists, roll-number search, zero memory leaks.",
+            "4. Financial Assistant - https://github.com/parthgurav1306-ship-it/financial_assistant",
+            "",
+            "EDUCATION, CERTIFICATIONS & STATS",
+            "- B.E. in Computer Engineering, Dr. D. Y. Patil College of Engineering and Innovation, SPPU (2025-2029, CGPA: 9.85 / 10)",
+            "- Class XII: 69.50%, Ramkrushna Paramhans Mahavidyalay, Dharashiv",
+            "- Virtual Internship Program: AI Specialist - BFSI (SmartBridge & NASSCOM FutureSkills Prime, ID: VIP-BFSI-2026-0223)",
+            "- LeetCode: 10 solved | GeeksforGeeks: 10 solved",
+          ].join("\n");
+
+          const blob = new Blob([resumeContent], { type: "text/plain;charset=utf-8" });
+          const url = URL.createObjectURL(blob);
+          const link = document.createElement("a");
+          link.href = url;
+          link.download = "Parth_Gurav_Resume.txt";
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          URL.revokeObjectURL(url);
+        });
+
+        /* ========================================================================
+           10. Placeholder Link Guard + Toast + Copy Email + Contact Form Validation
+           ======================================================================== */
+        const siteToast = document.getElementById("siteToast");
+        let toastTimer = null;
+
+        function showToast(msg) {
+          siteToast.textContent = msg;
+          siteToast.classList.add("show");
+          clearTimeout(toastTimer);
+          toastTimer = setTimeout(() => {
+            siteToast.classList.remove("show");
+          }, 3200);
+        }
+
+        document.querySelectorAll("[data-placeholder-link], #modalRepoLink").forEach((anchor) => {
+          anchor.addEventListener("click", (e) => {
+            const href = anchor.getAttribute("href") || "";
+            if (href.startsWith("[")) {
+              e.preventDefault();
+              const label = anchor.getAttribute("data-placeholder-link") || "Repository";
+              showToast(`Placeholder ${label}: replace ${href} in index.html with your actual URL.`);
+            }
+          });
+        });
+
+        const copyEmailBtn = document.getElementById("copyEmailBtn");
+        const contactEmailText = document.getElementById("contactEmailText");
+
+        copyEmailBtn.addEventListener("click", async () => {
+          const email = contactEmailText.textContent.trim();
+          try {
+            await navigator.clipboard.writeText(email);
+            copyEmailBtn.textContent = "Copied";
+            setTimeout(() => {
+              copyEmailBtn.textContent = "Copy Email";
+            }, 1800);
+          } catch {
+            copyEmailBtn.textContent = "Copy Failed";
+          }
+        });
+
+        const contactForm = document.getElementById("contactForm");
+        const formFeedback = document.getElementById("formFeedback");
+
+        contactForm.addEventListener("submit", (e) => {
+          e.preventDefault();
+          const name = document.getElementById("contactName").value.trim();
+          const email = document.getElementById("contactEmail").value.trim();
+          const message = document.getElementById("contactMessage").value.trim();
+          const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+          formFeedback.className = "form-feedback";
+
+          if (!name || !emailValid || message.length < 10) {
+            formFeedback.textContent =
+              "Please enter your name, a valid email address, and a message (at least 10 characters).";
+            formFeedback.classList.add("error");
+            return;
+          }
+
+          formFeedback.textContent = `Thanks, ${name}! Your message is ready — connect Formspree or mailto in index.html to receive submissions directly.`;
+          formFeedback.classList.add("success");
+          contactForm.reset();
+        });
+
+        document.getElementById("currentYear").textContent = String(new Date().getFullYear());
+      })();
+    </script>
+  </body>
+</html>
